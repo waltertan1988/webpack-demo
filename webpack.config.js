@@ -1,10 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: {
-    app: './src/index.js',
+    index: './src/index.js',
     print: './src/print.js'
   },
   devtool: 'inline-source-map',
@@ -20,7 +21,11 @@ module.exports = {
 	  title: "Output Management",
 	  template: "./src/index_template.html",
 	  filename: "index.html",
-	  hash: true
+	  hash: true,
+	  chunks: ["index", "print"]
+    }),
+	new MiniCssExtractPlugin({
+      filename: './css/[name].css' 
     })
   ],
   output: {
