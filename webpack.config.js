@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   entry: {
@@ -13,7 +14,8 @@ module.exports = {
     contentBase: './dist',
 	host: 'localhost',
 	port: 8080,
-	open: true
+	open: true,
+	hot: true
   },
   plugins: [
 	new CleanWebpackPlugin(),
@@ -26,7 +28,9 @@ module.exports = {
     }),
 	new MiniCssExtractPlugin({
       filename: './css/[name].css' 
-    })
+    }),
+	new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin()
   ],
   output: {
     filename: '[name].bundle.js',
